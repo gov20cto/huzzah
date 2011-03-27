@@ -29,3 +29,12 @@ gem 'sqlite3'
 # group :development, :test do
 #   gem 'webrat'
 # end
+
+gem 'mongoid', '>= 2.0.0.rc.8'
+gem 'mongoid_geo', '>= 0.3.1'
+gem 'bson_ext', '>= 1.2.4'
+gem 'devise', '>= 1.2.rc'
+gem 'jquery-rails'
+gem 'carrierwave', '>= 0.5.3'
+gem 'mini_magick', '>= 3.2'
+
