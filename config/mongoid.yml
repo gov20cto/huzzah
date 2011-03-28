@@ -8,4 +8,4 @@ test:
 
 # set these environment variables on your prod server
 production:
-  mongodb://javier:bolero@flame.mongohq.com:27097/huzzah
+  uri: <%= ENV['MONGOHQ_URL'] %>
