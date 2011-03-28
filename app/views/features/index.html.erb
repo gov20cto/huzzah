@@ -1,25 +1,40 @@
-<h1>Listing features</h1>
-
-<table>
-  <tr>
-    <th>Address</th>
-    <th>Directions</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @features.each do |feature| %>
-  <tr>
-    <td><%= feature.address %></td>
-    <td><%= feature.directions %></td>
-    <td><%= link_to 'Show', feature %></td>
-    <td><%= link_to 'Edit', edit_feature_path(feature) %></td>
-    <td><%= link_to 'Destroy', feature, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<script type="text/javascript">
+$(function() {
+	var latlng = new google.maps.LatLng(37.7647802734375, -122.45072631835938);
+	var myOptions = {
+		zoom: 12,
+		center: latlng,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+	var map = new google.maps.Map(document.getElementById("map_canvas"),
+	myOptions);
+	
+	$.ajax({
+		url: "/features.json",
+		context: document.body,
+		success: function(data){
+			for(i = 0; i<data.length;i++)
+			{
+				var latlng = new google.maps.LatLng(data[i].location[0], data[i].location[1]);
+				var m = new google.maps.Marker({
+					position: latlng, 
+					map: map, 
+					//icon: "/images/aed-icon-annotation.png",
+					title: data[i].address,
+					feature_id: data[i]._id
+				});
+				google.maps.event.addListener(m,'click',function() {
+					window.location = "/features/" + this.feature_id;
+					
+				})
+			}
+		}
+	});
+});
+</script>
+<h1>AED Map</h1>
+<div id='map_canvas' style='width:550px; height:375px;'></div>
 
 <br />
 
-<%= link_to 'New Feature', new_feature_path %>

@@ -14,4 +14,7 @@ class User
 
   # protect from hackers using mass-assignment technique
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
+  
+  # allow fast search by name
+  index :name
 end

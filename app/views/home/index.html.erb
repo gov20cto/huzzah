@@ -1,2 +1,84 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<script type="text/javascript">
+$(function() {
+	var latlng = new google.maps.LatLng(37.7647802734375, -122.45072631835938);
+	var myOptions = {
+		zoom: 1,
+		center: latlng,
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		panControl: false,
+		zoomControl: true,
+		mapTypeControl: false,
+		scaleControl: true,
+		streetViewControl: false,
+		overviewMapControl: true
+	};
+	var map = new google.maps.Map(document.getElementById("map_canvas"),
+	myOptions);
+	
+	$.ajax({
+		url: "/features.json",
+		context: document.body,
+		success: function(data)
+		{
+			var bounds = new google.maps.LatLngBounds();
+			for(i = 0; i<data.length;i++)
+			{
+				var latlng = new google.maps.LatLng(data[i].location[0], data[i].location[1]);
+				var m = new google.maps.Marker(
+				{
+					position: latlng, 
+					map: map, 
+					title: data[i].address,
+					feature_id: data[i]._id
+				});
+				google.maps.event.addListener(m,'click',function() 
+				{
+					window.location = "/features/" + this.feature_id;
+				});
+				bounds.extend(latlng);
+			}
+			map.setCenter(bounds.getCenter(), map.fitBounds(bounds));
+		}
+	});
+});
+</script>
+<style>
+ul.hmenu {
+	position: absolute;
+	left: 110px;
+	top:650px;
+	font-size: 3em;
+}
+a.hmenu { -webkit-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border-radius: 5px;
+	background-color: #DC143C; 
+	color: black; 
+	padding-left:15px;
+	padding-right: 15px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin: 10px;
+	text-decoration: none;
+	-moz-box-shadow: 3px 3px 4px #000;
+	-webkit-box-shadow: 3px 3px 4px #000;
+	box-shadow: 3px 3px 4px #000;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+}
+a.hmenu:visited { color: black; }
+a.hmenu:hover { color: #fff; }
+</style>
+<div class="title">Huzzah!</div>
+<div class="slogan">Play the game that could save your life.</div>
+<div id="phone" class="phone">
+	<img src="/images/AEDApp.png" border=0 class="aed_pic" />
+	<div id='map_canvas' class="map"></div>
+</div>
+
+<br />
+

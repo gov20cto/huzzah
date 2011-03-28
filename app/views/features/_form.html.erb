@@ -1,4 +1,4 @@
-<%= form_for(@feature) do |f| %>
+<%= form_for(@feature, :html => { :multipart => true }) do |f| %>
   <% if @feature.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@feature.errors.count, "error") %> prohibited this feature from being saved:</h2>
@@ -16,8 +16,12 @@
     <%= f.text_field :address %>
   </div>
   <div class="field">
-    <%= f.label :directions %><br />
-    <%= f.text_field :directions %>
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+  <div class="field">
+    <%= f.label :location %>
+    <%= f.text_field :location %>
   </div>
   <div class="actions">
     <%= f.submit %>

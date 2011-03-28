@@ -1,40 +1,31 @@
 class FeaturesController < ApplicationController
+  respond_to :html, :xml, :json
   # GET /features
   # GET /features.xml
   def index
     @features = Feature.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @features }
-    end
+    respond_with @features
   end
 
   # GET /features/1
   # GET /features/1.xml
   def show
     @feature = Feature.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @feature }
-    end
+    respond_with @feature
   end
 
   # GET /features/new
   # GET /features/new.xml
   def new
     @feature = Feature.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @feature }
-    end
+    respond_with @feature
   end
 
   # GET /features/1/edit
   def edit
     @feature = Feature.find(params[:id])
+    respond_with @feature
   end
 
   # POST /features
@@ -46,9 +37,11 @@ class FeaturesController < ApplicationController
       if @feature.save
         format.html { redirect_to(@feature, :notice => 'Feature was successfully created.') }
         format.xml  { render :xml => @feature, :status => :created, :location => @feature }
+        format.json { render :json => @feature, :status => :created, :location => @feature }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @feature.errors, :status => :unprocessable_entity }
+        format.json { render :json => @feature.errors, :status => :unprocessable_entity }
       end
     end
   end
