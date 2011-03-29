@@ -2,9 +2,15 @@
 $(function() {
 	var latlng = new google.maps.LatLng(37.7647802734375, -122.45072631835938);
 	var myOptions = {
-		zoom: 12,
+		zoom: 1,
 		center: latlng,
-		mapTypeId: google.maps.MapTypeId.ROADMAP
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		panControl: false,
+		zoomControl: true,
+		mapTypeControl: false,
+		scaleControl: true,
+		streetViewControl: false,
+		overviewMapControl: true
 	};
 	var map = new google.maps.Map(document.getElementById("map_canvas"),
 	myOptions);
@@ -12,22 +18,26 @@ $(function() {
 	$.ajax({
 		url: "/features.json",
 		context: document.body,
-		success: function(data){
+		success: function(data)
+		{
+			var bounds = new google.maps.LatLngBounds();
 			for(i = 0; i<data.length;i++)
 			{
 				var latlng = new google.maps.LatLng(data[i].location[0], data[i].location[1]);
-				var m = new google.maps.Marker({
+				var m = new google.maps.Marker(
+				{
 					position: latlng, 
 					map: map, 
-					//icon: "/images/aed-icon-annotation.png",
 					title: data[i].address,
 					feature_id: data[i]._id
 				});
-				google.maps.event.addListener(m,'click',function() {
+				google.maps.event.addListener(m,'click',function() 
+				{
 					window.location = "/features/" + this.feature_id;
-					
-				})
+				});
+				bounds.extend(latlng);
 			}
+			map.setCenter(bounds.getCenter(), map.fitBounds(bounds));
 		}
 	});
 });
