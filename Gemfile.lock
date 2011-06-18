@@ -41,6 +41,7 @@ GEM
       warden (~> 1.0.3)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    geocoder (1.0.1)
     hashie (1.0.0)
     i18n (0.5.0)
     jquery-rails (1.0.11)
@@ -106,6 +107,7 @@ DEPENDENCIES
   bson_ext (>= 1.2.4)
   carrierwave (>= 0.5.3)
   devise (>= 1.2.rc)
+  geocoder
   jquery-rails
   mini_magick (>= 3.2)
   mongoid (>= 2.0.0.rc.8)

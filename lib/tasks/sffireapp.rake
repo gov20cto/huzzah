@@ -11,7 +11,27 @@ namespace :sffireapp do
       aed.internal_verified_by = row[1]
       aed.supervising_physician = row[2]
       aed.organization = row[3]
-      aed.address = row[4]
+      
+      # deal with f'd up addresses
+      if row[4].nil? and not row[15].nil? then
+        row[4] = row[15]
+      end
+      address = Geocoder::address row[4] + ",San Francisco, CA"
+      if address.nil? and not row[4].nil? then
+        address = Geocoder::address row[4] 
+      end
+      if row[4].nil? then 
+        puts "Warning: Empty address!"
+        puts row
+      end
+      if address.nil? then
+        puts "Warning: Could not normalize address (#{row[0]}): " + row[4]
+      else
+        location = Geocoder::coordinates address
+        aed.location = location
+      end
+      aed.address = address.nil? ? row[4] : address
+      
       aed.zip = row[5]
       aed.exact_location = row[6]
       aed.best_access = row[7]

@@ -37,4 +37,5 @@ gem 'devise', '>= 1.2.rc'
 gem 'jquery-rails'
 gem 'carrierwave', '>= 0.5.3'
 gem 'mini_magick', '>= 3.2'
+gem 'geocoder'
 
