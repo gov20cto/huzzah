@@ -5,6 +5,10 @@ class Feature
   
   field :internal_verified_by, :type => String
   
+  field :internal_last_located, :type => Date
+  
+  field :internal_follow_up, :type => String
+  
   field :supervising_physician, :type => String
   
   field :organization, :type => String
@@ -16,10 +20,6 @@ class Feature
   field :exact_location, :type => String
   
   field :best_access, :type => String
-  
-  field :internal_last_located, :type => Date
-  
-  field :internal_follow_up, :type => String
   
   field :contact, :type => String
   
@@ -35,7 +35,7 @@ class Feature
   
   field :emergency_contact, :type => String
   
-  field :emergency_phone, :type => Phone
+  field :emergency_phone, :type => String
   
   field :training_org, :type => String
   
