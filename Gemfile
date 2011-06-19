@@ -31,7 +31,7 @@ gem 'sqlite3'
 # end
 
 gem 'mongoid', '>= 2.0.0.rc.8'
-gem 'mongoid_geo', '>= 0.3.1'
+gem 'mongoid_geo', '0.3.2'
 gem 'bson_ext', '>= 1.2.4'
 gem 'devise', '>= 1.2.rc'
 gem 'jquery-rails'
