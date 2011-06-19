@@ -1,7 +1,7 @@
 Huzzah::Application.routes.draw do
   resources :features
 
-  root :to => "home#index"
+  root :to => "features#index"
 
   devise_for :users
 
