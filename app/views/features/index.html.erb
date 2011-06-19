@@ -23,19 +23,22 @@ $(function() {
 			var bounds = new google.maps.LatLngBounds();
 			for(i = 0; i<data.length;i++)
 			{
+				if(typeof data[i].location == "undefined") continue
+				
 				var latlng = new google.maps.LatLng(data[i].location[0], data[i].location[1]);
 				var m = new google.maps.Marker(
-				{
-					position: latlng, 
-					map: map, 
-					title: data[i].address,
-					feature_id: data[i]._id
-				});
+					{
+						position: latlng, 
+						map: map, 
+						title: data[i].address,
+						feature_id: data[i]._id
+					});
 				google.maps.event.addListener(m,'click',function() 
-				{
-					window.location = "/features/" + this.feature_id;
-				});
+					{
+						window.location = "/features/" + this.feature_id;
+					});
 				bounds.extend(latlng);
+				
 			}
 			map.setCenter(bounds.getCenter(), map.fitBounds(bounds));
 		}

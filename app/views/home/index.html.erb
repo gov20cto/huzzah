@@ -23,6 +23,8 @@ $(function() {
 			var bounds = new google.maps.LatLngBounds();
 			for(i = 0; i<data.length;i++)
 			{
+				if(typeof data[i].location == "undefined") continue
+				
 				var latlng = new google.maps.LatLng(data[i].location[0], data[i].location[1]);
 				var m = new google.maps.Marker(
 				{
