@@ -1,9 +1,10 @@
 var map;
-function renderMap(lat,lon)
+var zoom = 15;
+function renderMap(lat,lon,sensor)
 {
 	var latlng = new google.maps.LatLng(lat, lon);
 	var myOptions = {
-		zoom: 12,
+		zoom: zoom,
 		center: latlng,
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		panControl: false,
@@ -16,6 +17,13 @@ function renderMap(lat,lon)
 	map = new google.maps.Map(document.getElementById("map_canvas"),
 	myOptions);
 	
+	// if we got our data from a geolocator, throw up the "blue ball"
+	if(sensor)
+	{
+		addSensor(lat,lon);
+	}
+	
+	// load aed data
 	$.ajax({
 		url: "/features.json",
 		context: document.body,
@@ -44,4 +52,22 @@ function renderMap(lat,lon)
 			//map.setCenter(bounds.getCenter(), map.fitBounds(bounds));
 		}
 	});
+}
+
+function addSensor(lat,lon) {
+	var image = new google.maps.MarkerImage('/images/blueball.png',
+		new google.maps.Size(16, 16),
+		new google.maps.Point(0,0),
+		new google.maps.Point(7, 7));
+
+
+	var sensor_loc = new google.maps.LatLng(lat, lon);
+	var marker = new google.maps.Marker({
+		position: sensor_loc,
+		map: map,
+		icon: image,
+		title: "You are here.",
+		zIndex: 1000
+	});
+
 }
