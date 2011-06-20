@@ -1,5 +1,5 @@
 var map;
-var zoom = 15;
+var zoom = 17;
 function renderMap(lat,lon,sensor)
 {
 	var latlng = new google.maps.LatLng(lat, lon);
