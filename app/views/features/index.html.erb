@@ -1,48 +1,18 @@
 <script type="text/javascript">
 $(function() {
-	var latlng = new google.maps.LatLng(37.7647802734375, -122.45072631835938);
-	var myOptions = {
-		zoom: 1,
-		center: latlng,
-		mapTypeId: google.maps.MapTypeId.ROADMAP,
-		panControl: false,
-		zoomControl: true,
-		mapTypeControl: false,
-		scaleControl: true,
-		streetViewControl: false,
-		overviewMapControl: true
-	};
-	var map = new google.maps.Map(document.getElementById("map_canvas"),
-	myOptions);
-	
-	$.ajax({
-		url: "/features.json",
-		context: document.body,
-		success: function(data)
+	if(navigator.geolocation)
+	{
+		navigator.geolocation.getCurrentPosition(function(location) {
+			renderMap(location.coords.latitude,location.coords.longitude)
+		}, function()
 		{
-			var bounds = new google.maps.LatLngBounds();
-			for(i = 0; i<data.length;i++)
-			{
-				if(typeof data[i].location == "undefined") continue
-				
-				var latlng = new google.maps.LatLng(data[i].location[0], data[i].location[1]);
-				var m = new google.maps.Marker(
-					{
-						position: latlng, 
-						map: map, 
-						title: data[i].address,
-						feature_id: data[i]._id
-					});
-				google.maps.event.addListener(m,'click',function() 
-					{
-						window.location = "/features/" + this.feature_id;
-					});
-				bounds.extend(latlng);
-				
-			}
-			map.setCenter(bounds.getCenter(), map.fitBounds(bounds));
-		}
-	});
+			renderMap(37.740360538424284, -122.43467206259766);
+		});
+	} 
+	else
+	{
+		renderMap(37.740360538424284, -122.43467206259766);
+	}	
 });
 </script>
 <div id='map_canvas' style='width:100%; height:100%; position:absolute; top:0; left:0; '></div>
