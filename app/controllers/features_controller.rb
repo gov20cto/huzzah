@@ -3,7 +3,12 @@ class FeaturesController < ApplicationController
   # GET /features
   # GET /features.xml
   def index
-    @features = Feature.all
+    box = params[:box].nil? ? nil : params[:box].split(',')
+    unless box.nil? then
+      box = [ [box[0],box[1]], [box[2],box[3]] ]
+      puts box
+      @features = Feature.where(:location.within_box => box)
+    end
 
     respond_with @features
   end

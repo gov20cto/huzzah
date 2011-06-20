@@ -2,6 +2,7 @@ var map;
 var zoom = 17;
 function renderMap(lat,lon,sensor)
 {
+	var initialized = false;
 	var latlng = new google.maps.LatLng(lat, lon);
 	var myOptions = {
 		zoom: zoom,
@@ -16,20 +17,30 @@ function renderMap(lat,lon,sensor)
 	};
 	map = new google.maps.Map(document.getElementById("map_canvas"),
 	myOptions);
-	
+
 	// if we got our data from a geolocator, throw up the "blue ball"
 	if(sensor)
 	{
 		addSensor(lat,lon);
 	}
-	
+
+	google.maps.event.addListener(map, 'bounds_changed', function() {
+		if(!initialized)
+		{
+			addPads(map.getBounds());
+			initialized = true;
+		}
+	});
+}
+
+function addPads(b)
+{
 	// load aed data
 	$.ajax({
-		url: "/features.json",
+		url: "/features.json?box=" + b.toUrlValue(),
 		context: document.body,
 		success: function(data)
 		{
-			var bounds = new google.maps.LatLngBounds();
 			for(i = 0; i<data.length;i++)
 			{
 				if(typeof data[i].location == "undefined") continue
@@ -43,13 +54,10 @@ function renderMap(lat,lon,sensor)
 						feature_id: data[i]._id
 					});
 				google.maps.event.addListener(m,'click',function() 
-					{
-						window.location = "/features/" + this.feature_id;
-					});
-				bounds.extend(latlng);
-				
+				{
+					window.location = "/features/" + this.feature_id;
+				});	
 			}
-			//map.setCenter(bounds.getCenter(), map.fitBounds(bounds));
 		}
 	});
 }
