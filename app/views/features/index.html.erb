@@ -3,15 +3,15 @@ $(function() {
 	if(navigator.geolocation)
 	{
 		navigator.geolocation.getCurrentPosition(function(location) {
-			renderMap(location.coords.latitude,location.coords.longitude,true)
+			renderMap(location.coords.latitude,location.coords.longitude,13,true)
 		}, function()
 		{
-			renderMap(37.740360538424284, -122.43467206259766,false);
+			renderMap(37.740360538424284, -122.43467206259766,13,false);
 		});
 	} 
 	else
 	{
-		renderMap(37.740360538424284, -122.43467206259766,false);
+		renderMap(37.740360538424284, -122.43467206259766,13,false);
 	}	
 });
 </script>

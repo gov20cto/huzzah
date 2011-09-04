@@ -1,10 +1,9 @@
 var map;
-var zoom = 17;
 var loadedMarkers = new Array();
-function renderMap(lat,lon,sensor)
+function renderMap(lat,lon,zoom,sensor)
 {
 	var bounds_changed = false;
-	var latlng = new google.maps.LatLng(lat, lon);
+	var latlng = new google.maps.LatLng(37.761360538424284, -122.43467206259766);
 	var myOptions = {
 		zoom: zoom,
 		center: latlng,
