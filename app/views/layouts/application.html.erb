@@ -7,15 +7,33 @@
   <%= javascript_include_tag "http://maps.google.com/maps/api/js?sensor=false" %>
   <%= csrf_meta_tag %>
 </head>
-<body>
-<ul class="hmenu">
-  <%= render 'devise/menu/registration_items' %>
-  <%= render 'devise/menu/login_items' %>
-</ul>
-<%- flash.each do |name, msg| -%>
-  <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
-<%- end -%>
-<%= yield %>
-
-</body>
+	<body style="height:100%;">
+	<div class="topbar-wrapper" style="z-index: 5;">
+		    <div class="topbar">
+		      <div class="topbar-inner">
+		        <div class="container-fluid">
+		          <h3><a href="#">AED Manager</a></h3>
+		          <ul class="nav"><li class="active"><a href="#">Map</a></li></ul>
+		          <form action=""><input type="text" placeholder="Search" /></form>
+		          <ul class="nav secondary-nav">
+		            <li class="dropdown">
+		              <a href="#" class="dropdown-toggle">Account</a>
+		              <ul class="dropdown-menu">
+						<%= render 'devise/menu/registration_items' %>
+						<li class="divider"></li>
+						<%= render 'devise/menu/login_items' %>
+		              </ul>
+		            </li>
+		          </ul>
+		        </div>
+		      </div><!-- /topbar-inner -->
+		    </div><!-- /topbar -->
+		  </div><!-- /topbar-wrapper -->
+		<%- flash.each do |name, msg| -%>
+		  <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+		<%- end -%>
+    <div style="width:100%; height:100%;">
+		<%= yield %>
+    </div>
+    </body>
 </html>

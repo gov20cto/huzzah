@@ -1,8 +1,9 @@
 var map;
 var zoom = 17;
+var loadedMarkers = new Array();
 function renderMap(lat,lon,sensor)
 {
-	var initialized = false;
+	var bounds_changed = false;
 	var latlng = new google.maps.LatLng(lat, lon);
 	var myOptions = {
 		zoom: zoom,
@@ -10,6 +11,7 @@ function renderMap(lat,lon,sensor)
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		panControl: false,
 		zoomControl: true,
+		zoomControlOptions: { position: google.maps.ControlPosition.LEFT_TOP },
 		mapTypeControl: false,
 		scaleControl: true,
 		streetViewControl: false,
@@ -25,12 +27,15 @@ function renderMap(lat,lon,sensor)
 	}
 
 	google.maps.event.addListener(map, 'bounds_changed', function() {
-		if(!initialized)
-		{
-			addPads(map.getBounds());
-			initialized = true;
-		}
+		bounds_changed=true;
 	});
+	
+	setInterval(function() {
+		if(bounds_changed) {
+			bounds_changed=false;
+			addPads(map.getBounds());
+		}
+	},2000);
 }
 
 function addPads(b)
@@ -44,19 +49,20 @@ function addPads(b)
 			for(i = 0; i<data.length;i++)
 			{
 				if(typeof data[i].location == "undefined") continue
-				
-				var latlng = new google.maps.LatLng(data[i].location[0], data[i].location[1]);
-				var m = new google.maps.Marker(
-					{
+				if(typeof loadedMarkers[data[i]._id] == "undefined") {
+					var latlng = new google.maps.LatLng(data[i].location[0], data[i].location[1]);
+					var m = new google.maps.Marker({
 						position: latlng, 
 						map: map, 
 						title: data[i].address,
 						feature_id: data[i]._id
 					});
-				google.maps.event.addListener(m,'click',function() 
-				{
-					window.location = "/features/" + this.feature_id;
-				});	
+					google.maps.event.addListener(m,'click',function() 
+					{
+						window.location = "/features/" + this.feature_id;
+					});	
+					loadedMarkers[data[i]._id] = m;
+				}
 			}
 		}
 	});
