@@ -16,7 +16,7 @@
 	<p><b>Supervising Physician:</b> <%= @feature.supervising_physician %></p>
 	<p><b>AED Type:</b> <%= @feature.aed_type %></p>
 	<p><b>Number of Units:</b> <%= @feature.number_units %></p>
-	<p><b>Date Implemented:</b> <%= @feature.date_implemented %></p>
+	<p><b>Date Implemented:</b> <%= pretty_date @feature.date_implemented %></p>
 	<p><b>Image:</b> <% if @feature.image.url(:thumb) != nil %><%= image_tag @feature.image.url(:thumb) %><% else %>No image.<% end %></p>
 	<p><b>Validated:</b> <% if @feature.validated %>Yes.<% else %>No.<% end %></p>
 	</div>
