@@ -76,6 +76,7 @@ function displayModal(feature_id)
 		{
 			$("#modal_loader").html(data);
 			$("#modal_loader .close").click(function() { $("#modal_loader").html(''); });
+			$("#modal_loader #mask").click(function() { $("#modal_loader").html(''); });
 		}
 	});
 }
