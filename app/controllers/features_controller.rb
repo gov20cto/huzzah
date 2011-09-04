@@ -17,7 +17,9 @@ class FeaturesController < ApplicationController
   # GET /features/1.xml
   def show
     @feature = Feature.find(params[:id])
-    respond_with @feature
+    respond_with @feature do |format|
+      format.html { render :layout => false }
+    end
   end
 
   # GET /features/new

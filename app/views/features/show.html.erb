@@ -1,17 +1,25 @@
-<p>
-  <b>Address:</b>
-  <%= @feature.address %>
-</p>
+<!-- Modal -->
+<div class="modal" style="position: relative; top: 100px; left: auto; margin: 0 auto; z-index: 1">
+	<div class="modal-header">
+		<h3>AED Details</h3>
+		<a href="#" class="close">&times;</a>
+	</div>
+	<div class="modal-body"><p>
+	  <b>Address:</b>
+	  <%= @feature.address %>
+	</p>
 
-<p>
-  <b>Image:</b>
-<% if @feature.image.url(:thumb) != nil %>
-  <%= image_tag @feature.image.url(:thumb) %>
-<% else %>
-No image.
-<% end %>
-</p>
-
-<%= link_to 'Edit', edit_feature_path(@feature) %> |
-<%= link_to 'Back', features_path %>
-<%= link_to 'Delete', @feature, :method => 'delete' %>
+	<p>
+	  <b>Image:</b>
+	<% if @feature.image.url(:thumb) != nil %>
+	  <%= image_tag @feature.image.url(:thumb) %>
+	<% else %>
+	No image.
+	<% end %>
+	</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn primary">SeeClickValidate</a>
+		<a href="#" class="btn secondary">Remove</a>
+	</div>
+</div>

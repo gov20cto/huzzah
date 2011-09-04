@@ -58,11 +58,24 @@ function addPads(b)
 					});
 					google.maps.event.addListener(m,'click',function() 
 					{
-						window.location = "/features/" + this.feature_id;
+						displayModal(this.feature_id);
 					});	
 					loadedMarkers[data[i]._id] = m;
 				}
 			}
+		}
+	});
+}
+
+function displayModal(feature_id)
+{
+	$.ajax({
+		url: "/features/" + feature_id,
+		context: document.body,
+		success: function(data)
+		{
+			$("#modal_loader").html(data);
+			$("#modal_loader .close").click(function() { $("#modal_loader").html(''); });
 		}
 	});
 }
