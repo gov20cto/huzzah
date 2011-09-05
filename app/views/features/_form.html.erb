@@ -1,29 +1,137 @@
-<%= form_for(@feature, :html => { :multipart => true }) do |f| %>
-  <% if @feature.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@feature.errors.count, "error") %> prohibited this feature from being saved:</h2>
+<%= form_for(@feature, :html => { :multipart => true, :class=>'form-stacked'}) do |f| %>
+<% if @feature.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@feature.errors.count, "error") %> prohibited this feature from being saved:</h2>
 
-      <ul>
-      <% @feature.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+	<ul>
+		<% @feature.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+<fieldset>
+	<legend>Internal Use</legend>
+	<div class="row">
+		<div class="span8 columns">
+			<div class="clearfix">
+				<%= f.label :internal_id, 'ID' %>
+				<div class="input"><%= f.text_field :internal_id %></div>
+			</div>
+			<div class="clearfix">
+				<%= f.label :internal_verified_by, 'Verified By' %>
+				<div class="input"><%= f.text_field :internal_verified_by %></div>
+			</div>
+		</div>
+		<div class="span8 columns">
+			<div class="clearfix">
+				<%= f.label :internal_last_located, 'Last Located' %>
+				<div class="input"><%= f.date_select :internal_last_located, {}, :class => 'small' %></div>
+			</div>
+			<div class="clearfix">
+				<%= f.label :internal_follow_up, 'Follow Up' %>
+				<div class="input"><%= f.text_field :internal_follow_up %></div>
+			</div>
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+	<legend>Program Details</legend>
+	<div class="row">
+		<div class="span8 columns">
+			<div class="clearfix">
+				<%= f.label :organization %>
+				<div class="input"><%= f.text_field :organization %></div>
+			</div>
+			<div class="clearfix">
+				<%= f.label :address %>
+				<div class="input"><%= f.text_field :address %></div>
+			</div>
+			<div class="clearfix">
+				<%= f.label :zip %>
+				<div class="input"><%= f.text_field :zip %></div>
+			</div>
+			<div class="clearfix">
+				<%= f.label :aed_type, 'AED Type' %>
+				<div class="input"><%= f.text_field :aed_type %></div>
+			</div>
+			<div class="clearfix">
+				<%= f.label :number_units,'Number of Units' %>
+				<div class="input"><%= f.text_field :number_units %></div>
+			</div>
+			<div class="clearfix">
+				<%= f.label :number_users,'Number of Users' %>
+				<div class="input"><%= f.text_field :number_users %></div>
+			</div>
+		</div>
+		<div class="span8 columns">
+			<div class="clearfix">
+				<%= f.label :supervising_physician,'Supervising Physician' %>
+				<div class="input"><%= f.text_field :supervising_physician %></div>
+			</div>
+			<div class="clearfix">
+				<%= f.label :training_org,'Training Organization' %>
+				<div class="input"><%= f.text_field :training_org %></div>
+			</div>
+			<div class="clearfix">
+				<%= f.label :exact_location,'Exact Location' %>
+				<div class="input"><%= f.text_field :exact_location %></div>
+			</div>
+			<div class="clearfix">
+				<%= f.label :best_access,'Access Instructions' %>
+				<div class="input"><%= f.text_field :best_access %></div>
+			</div>
 
-  <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
-  </div>
-  <div class="field">
-    <%= f.label :image %>
-    <%= f.file_field :image %>
-  </div>
-  <div class="field">
-    <%= f.label :location %>
-    <%= f.text_field :location %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+			<div class="clearfix">
+				<%= f.label :date_implemented,'Date Implemented' %>
+				<div class="input"><%= f.date_select :date_implemented,{}, :class => 'small' %></div>
+			</div>
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+	<legend>Contact Information</legend>
+	<div class="row">
+		<div class="span8 columns">
+			<div class="clearfix">
+				<%= f.label :contact %>
+				<div class="input"><%= f.text_field :contact %></div>
+			</div>
+			<div class="clearfix">
+				<%= f.label :contact_title %>
+				<div class="input"><%= f.text_field :contact_title %></div>
+			</div>
+			<div class="clearfix">
+				<%= f.label :contact_phone %>
+				<div class="input"><%= f.text_field :contact_phone %></div>
+			</div>
+			<div class="clearfix">
+				<%= f.label :contact_fax %>
+				<div class="input"><%= f.text_field :contact_fax %></div>
+			</div>
+		</div>
+		<div class="span8 columns">
+			<div class="clearfix">
+				<%= f.label :contact_email %>
+				<div class="input"><%= f.text_field :contact_email %></div>
+			</div>
+			<div class="clearfix">
+				<%= f.label :contact_address %>
+				<div class="input"><%= f.text_field :contact_address %></div>
+			</div>
+			<div class="clearfix">
+				<%= f.label :emergency_contact %>
+				<div class="input"><%= f.text_field :emergency_contact %></div>
+			</div>
+			<div class="clearfix">
+				<%= f.label :emergency_phone %>
+				<div class="input"><%= f.text_field :emergency_phone %></div>
+			</div>
+		</div>
+	</div>
+	<div class="actions">
+		<%= f.submit 'Save Changes', :class => 'btn primary' %>
+		<button type="reset" class="btn" onclick="location.href='/';">Cancel</button>
+	</div>
+</fieldset>
 <% end %>

@@ -42,7 +42,7 @@ class FeaturesController < ApplicationController
 
     respond_to do |format|
       if @feature.save
-        format.html { redirect_to(@feature, :notice => 'Feature was successfully created.') }
+        format.html { redirect_to(edit_feature_path(@feature), :notice => 'AED was successfully created.') }
         format.xml  { render :xml => @feature, :status => :created, :location => @feature }
         format.json { render :json => @feature, :status => :created, :location => @feature }
       else
@@ -60,7 +60,7 @@ class FeaturesController < ApplicationController
 
     respond_to do |format|
       if @feature.update_attributes(params[:feature])
-        format.html { redirect_to(@feature, :notice => 'Feature was successfully updated.') }
+        format.html { redirect_to(edit_feature_path(@feature), :notice => 'AED was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

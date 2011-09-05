@@ -3,18 +3,18 @@ $(function() {
 	if(navigator.geolocation)
 	{
 		navigator.geolocation.getCurrentPosition(function(location) {
-			renderMap(location.coords.latitude,location.coords.longitude,13,true)
+			renderMap(location.coords.latitude,location.coords.longitude,12,true)
 		}, function()
 		{
-			renderMap(37.740360538424284, -122.43467206259766,13,false);
+			renderMap(37.740360538424284, -122.43467206259766,12,false);
 		});
 	} 
 	else
 	{
-		renderMap(37.740360538424284, -122.43467206259766,13,false);
+		renderMap(37.740360538424284, -122.43467206259766,12,false);
 	}	
 });
 </script>
-<div id='map_canvas' style="width:100%; bottom:0px; position:absolute; top:40px"></div>
+<div id='map_canvas' style="width:100%; left:0px; right: 0px; bottom:0px; position:absolute; top:40px"></div>
 <div id='modal_loader'></div>
 <div id='mask'></div>

@@ -26,6 +26,9 @@ class Feature
   field :date_implemented, :type => Date
   field :date_validated, :type => DateTime
   field :validated, :type => Boolean
+  field :open311_id, :type => Integer
+  field :open311_status, :type => String
+  field :open311_rating, :type => Integer
 
   # each feature can have an optional image
   mount_uploader :image, FeatureImageUploader
